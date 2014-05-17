@@ -12,7 +12,7 @@ function vacio(q) {
 //valida que el campo no este vacío
 
 function valida(Form) {
-		if( vacio(Form.nombre.value) == false ) {  
+	if( vacio(Form.nombre.value) == false ) {  
                 alert ("El campo nombre es Obligatorio.")  
                 return false  
 		}else if( vacio(Form.telefono.value) == false ) {  
