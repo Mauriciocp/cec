@@ -16,7 +16,7 @@ function get_form($id){
 		$fechanacimiento = $ciudad['fechanacimiento'];
 	}
 	$html = '
-	<form name="ciudad" action="" method="POST">
+	<form name="ciudad" action="" method="POST" onSubmit="return valida(this);">
 	<input type="hidden" name="id" value="' . $id . '">
 	<table border="0" align="center">
 		<tr>
@@ -28,19 +28,19 @@ function get_form($id){
 		</tr>
                 <tr>
 			<th>direccion: </th>
-			<td><input type="text" name="nombre" value="' . $direccion . '"></td>
+			<td><input type="text" name="direccion" value="' . $direccion . '"></td>
 		</tr>
                 <tr>
 			<th>Telefono: </th>
-			<td><input type="text" name="nombre" value="' . $telefono . '"></td>
+			<td><input type="text" name="telefono" value="' . $telefono . '"></td>
 		</tr>
                 <tr>
 			<th>Email: </th>
-			<td><input type="text" name="nombre" value="' . $email . '"></td>
+			<td><input type="text" name="email" value="' . $email . '"></td>
 		</tr>
                 <tr>
 			<th>Fecha:</th>
-			<td><input type="text" name="fecha" value="' . $fechanacimiento . '"size=10></td>
+			<td><input type="text" name="fechanacimiento" id="datepicker" value="' . $fechanacimiento . '"size=10></td>
 			</tr>
 		<tr>
 			<th>Pais: </th>
@@ -71,13 +71,13 @@ function get_combo_pais($id){
 }
 
 function guardar(){
-	$sql = ($_POST['id']==NULL)?"INSERT INTO ciudad values(NULL,
+	$sql = ($_POST['id']==NULL)?"INSERT INTO contacto values(NULL,
 							'" . $_POST['nombre'] . "',
 							'" . $_POST['direccion'] . "',
 							'" . $_POST['telefono'] . "',
 							'" . $_POST['email'] . "',
-							'" . $_POST['fechanacimiento'] . "',
-							" . $_POST['pais'] .");":
+							'" . $_POST['pais'] . "',
+							" . $_POST['fechanacimiento'] .");":
 							"UPDATE ciudad 
 							SET nombre='" . $_POST['nombre'.'direccion'.'telefono'.'email'.'fechanacimiento'] . "',
 							pais=" . $_POST['pais'] ."
@@ -88,6 +88,8 @@ function guardar(){
 		header('Location: http://localhost/ciudad/index.php');
 	}else{
 		echo "Error al guardar el registro";
+                echo $sql;
+                  
 	}					
 }
 

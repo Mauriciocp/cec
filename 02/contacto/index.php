@@ -1,5 +1,15 @@
+<script type="text/javascript" src="js/js/validar.js"></script>
+  <link rel="stylesheet" href="js/dp/jquery-ui.css">
+  <script src="js/dp/jquery-1.10.2.js"></script>
+  <script src="js/dp/jquery-ui.js"></script>
+   <script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+  </script>
 <?php
 include("includes/funciones.php");
+
 
 if($_GET['op']=='del'){
 	borrar($_GET['id']);
