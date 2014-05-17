@@ -15,7 +15,7 @@
 </head>
 <body>
 <p>Date: <input type="text" id="datepicker"></p>
- 
+ http://jqueryui.com/datepicker/
  
 </body>
 </html>
