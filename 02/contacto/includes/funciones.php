@@ -10,21 +10,40 @@ function get_form($id){
 		$res = mysql_query($sql);
 		$ciudad = mysql_fetch_assoc($res);
 		$nombre = $ciudad['nombre'];
-		$pais = $ciudad['pais'];
+		$direccion = $ciudad['direccion'];
+		$telefono = $ciudad['telefono'];
+		$email = $ciudad['email'];
+		$fechanacimiento = $ciudad['fechanacimiento'];
 	}
 	$html = '
 	<form name="ciudad" action="" method="POST">
 	<input type="hidden" name="id" value="' . $id . '">
 	<table border="0" align="center">
 		<tr>
-			<th colspan="2">INGRESO DE DATOS CIUDADES</th>
+			<th colspan="2">INGRESO DE DATOS CONTACTOS</th>
 		</tr>
 		<tr>
 			<th>Nombre: </th>
 			<td><input type="text" name="nombre" value="' . $nombre . '"></td>
 		</tr>
+                <tr>
+			<th>direccion: </th>
+			<td><input type="text" name="nombre" value="' . $direccion . '"></td>
+		</tr>
+                <tr>
+			<th>Telefono: </th>
+			<td><input type="text" name="nombre" value="' . $telefono . '"></td>
+		</tr>
+                <tr>
+			<th>Email: </th>
+			<td><input type="text" name="nombre" value="' . $email . '"></td>
+		</tr>
+                <tr>
+			<th>Fecha:</th>
+			<td><input type="text" name="fecha" value="' . $fechanacimiento . '"size=10></td>
+			</tr>
 		<tr>
-			<th>País: </th>
+			<th>Pais: </th>
 			<td>' . get_combo_pais($pais) . '</td>
 		</tr>
 		<tr>
@@ -54,9 +73,13 @@ function get_combo_pais($id){
 function guardar(){
 	$sql = ($_POST['id']==NULL)?"INSERT INTO ciudad values(NULL,
 							'" . $_POST['nombre'] . "',
+							'" . $_POST['direccion'] . "',
+							'" . $_POST['telefono'] . "',
+							'" . $_POST['email'] . "',
+							'" . $_POST['fechanacimiento'] . "',
 							" . $_POST['pais'] .");":
 							"UPDATE ciudad 
-							SET nombre='" . $_POST['nombre'] . "',
+							SET nombre='" . $_POST['nombre'.'direccion'.'telefono'.'email'.'fechanacimiento'] . "',
 							pais=" . $_POST['pais'] ."
 							WHERE id=" . $_POST['id'] .";";	
 
@@ -80,12 +103,14 @@ function borrar($id){
 
 function get_list(){
 	$sql = "SELECT c.id,c.nombre,p.nombre as pais 
-			FROM ciudad c,pais p
-			WHERE c.pais=p.id ORDER BY nombre;";
+			FROM contacto c,pais p
+			WHERE c.pais_id=p.id ORDER BY nombre;";
+       // echo $sql;
+        
 	$res = mysql_query($sql);
 	$html = '<table border=1 align="center">
 	<tr>
-		<th colspan="4">REPORTE CIUDADES</th>
+		<th colspan="4">REPORTE CONTACTOS</th>
 	</tr>
 	<tr>
 		<th colspan="4"><a href="index.php?op=new"><img src="images/new.png"></a></th>
