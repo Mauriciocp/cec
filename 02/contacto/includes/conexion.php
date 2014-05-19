@@ -1,4 +1,5 @@
 <?php
+$direccion='http://localhost/cec/02/contacto/';
 $user = "contactos";
 $password = "contactos";
 $servidor = "localhost";

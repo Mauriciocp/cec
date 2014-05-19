@@ -1,12 +1,13 @@
 <?php
 include('conexion.php');
 
+
 function get_form($id){
 	if($id==NULL){
 		$nombre = NULL;
 		$pais = NULL;
 	}else {
-		$sql = "SELECT * FROM ciudad WHERE id=$id;";
+		$sql = "SELECT * FROM contacto WHERE id=$id;";
 		$res = mysql_query($sql);
 		$ciudad = mysql_fetch_assoc($res);
 		$nombre = $ciudad['nombre'];
@@ -71,21 +72,28 @@ function get_combo_pais($id){
 }
 
 function guardar(){
+        $fecha=date("Y-m-d", strtotime($_POST['fechanacimiento']));
+        
+    
 	$sql = ($_POST['id']==NULL)?"INSERT INTO contacto values(NULL,
 							'" . $_POST['nombre'] . "',
 							'" . $_POST['direccion'] . "',
 							'" . $_POST['telefono'] . "',
 							'" . $_POST['email'] . "',
 							'" . $_POST['pais'] . "',
-							" . $_POST['fechanacimiento'] .");":
-							"UPDATE ciudad 
-							SET nombre='" . $_POST['nombre'.'direccion'.'telefono'.'email'.'fechanacimiento'] . "',
-							pais=" . $_POST['pais'] ."
+							" . $fecha.");":
+							"UPDATE contacto 
+							SET nombre='" . $_POST['nombre'] . "',
+							direccion='" . $_POST['direccion'] . "',
+							telefono='" . $_POST['telefono'] . "',
+							email='" . $_POST['email'] . "',
+							fechanacimiento='" . $fecha. "',
+							pais_id=" . $_POST['pais'] ."
 							WHERE id=" . $_POST['id'] .";";	
 
 	if(mysql_query($sql)){
 		echo "Se guardó correctamente";
-		header('Location: http://localhost/ciudad/index.php');
+		header('Location: http://localhost/cec/02/contacto/index.php');
 	}else{
 		echo "Error al guardar el registro";
                 echo $sql;
@@ -94,17 +102,18 @@ function guardar(){
 }
 
 function borrar($id){
-	$sql = "DELETE FROM ciudad WHERE id=$id;";
+	$sql = "DELETE FROM contacto WHERE id=$id;";
 	if(mysql_query($sql)){
 		echo "Se eliminó correctamente";
-		header('Location: http://localhost/ciudad/index.php');
+		header('Location: http://localhost/cec/02/contacto/index.php');
 	}else{
 		echo "Error al eliminar el registro";
 	}
 }
 
 function get_list(){
-	$sql = "SELECT c.id,c.nombre,p.nombre as pais 
+	$sql = "SELECT c.id,c.nombre,c.direccion,c.telefono,c.email,c.fechanacimiento,
+            p.nombre as pais 
 			FROM contacto c,pais p
 			WHERE c.pais_id=p.id ORDER BY nombre;";
        // echo $sql;
@@ -112,20 +121,28 @@ function get_list(){
 	$res = mysql_query($sql);
 	$html = '<table border=1 align="center">
 	<tr>
-		<th colspan="4">REPORTE CONTACTOS</th>
+		<th colspan="8">REPORTE CONTACTOS</th>
 	</tr>
 	<tr>
-		<th colspan="4"><a href="index.php?op=new"><img src="images/new.png"></a></th>
+		<th colspan="8"><a href="index.php?op=new"><img src="images/new.png"></a></th>
 	</tr>
 	<tr>
 		<th>Nombre</th>
+		<th>Direccion</th>
+		<th>Telefono</th>
+		<th>Email</th>
+		<th>Fecha</th>
 		<th>País</th>
-		<th colspan="2">Acciones</th>
+		<th colspan="5">Acciones</th>
 	</tr>';
 	
 	while($ciudad = mysql_fetch_assoc($res)){
 		$html .= '<tr>
 			<td>' . $ciudad['nombre'] . '</td>
+			<td>' . $ciudad['direccion'] . '</td>
+			<td>' . $ciudad['telefono'] . '</td>
+			<td>' . $ciudad['email'] . '</td>
+			<td>' . $ciudad['fechanacimiento'] . '</td>
 			<td>' . $ciudad['pais'] . '</td>
 			<td><a href="index.php?op=del&id=' . $ciudad['id'] . '"><img src="images/del.gif"></a></td>
 			<td><a href="index.php?op=up&id=' . $ciudad['id'] . '"><img src="images/editar.png"></a></td>
@@ -135,5 +152,6 @@ function get_list(){
 	$html .= '</table>';
 	return $html;
 }
+
 ?>
 

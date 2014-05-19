@@ -8,6 +8,12 @@ function vacio(q) {
     }
     return false
 }
+function validarEmail( email ) {
+    expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if ( !expr.test(email) )
+        return false
+    return true
+}
 
 //valida que el campo no este vacío
 
@@ -29,6 +35,10 @@ function valida(Form) {
         return false
     } else if (vacio(Form.pais.value) == false) {
         alert("El campo pais es Obligatorio.")
+        return false
+    } 
+   else if (validarEmail(Form.email.value) == false) {
+        alert("El correo no es valido.")
         return false
     } else {
         return true
