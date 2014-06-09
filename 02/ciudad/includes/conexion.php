@@ -1,6 +1,6 @@
 <?php
-$user = "php";
-$password = "123";
+$user = "ciudad";
+$password = "ciudad";
 $servidor = "localhost";
 $db = "ciudades";
 $cn = mysql_connect($servidor, $user, $password);
