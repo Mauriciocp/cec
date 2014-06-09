@@ -1,6 +1,5 @@
 <?php
 include('conexion.php');
-
 function get_form($id){
 	if($id==NULL){
 		$nombre = NULL;
@@ -103,10 +102,50 @@ function get_list(){
 			<td><a href="index.php?op=del&id=' . $ciudad['id'] . '"><img src="images/del.gif"></a></td>
 			<td><a href="index.php?op=up&id=' . $ciudad['id'] . '"><img src="images/editar.png"></a></td>
 		</tr>';
+
 	}
 	
 	$html .= '</table>';
+
+	$html .= '<a href= "logout.php" > salir </a>';
+
 	return $html;
 }
+function get_form_login(){
+	$retval = '
+	<form name="login" action="" method="POST">
+		<table align="center" border=0>
+			<tr>
+				<th colspan="2">FORMUALRIO DE REGISTRO</th>
+			</tr>
+			<tr>
+				<th>Username: </th>
+				<td><input type="text" name="username" size=10></td>
+			</tr>
+			<tr>
+				<th>Password:</th>
+				<td><input type="password" name="password" size=10></td>
+			</tr>
+			<tr>
+				<td colspan=2 align="center"><input type="submit" name="login"></td>
+			</tr>
+		</table>
+	</form>';
+	
+	return $retval;
+}
+function valida_login($username,$password){
+	//conecta();
+	$sql = 'SELECT * FROM usuarios WHERE username="' . $username . '" AND password="' . $password . '";';
+	
+	$result = mysql_query($sql);
+	if($user=mysql_fetch_array($result)){
+		
+		return $user;
+		
+	}else{
+		return false;
+	}
+	mysql_close($cn);
+}
 ?>
-
