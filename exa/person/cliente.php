@@ -18,7 +18,7 @@ if(isset($_POST['buscar'])){
 	$result = $client->call(
 		'person', $parametros   // input parameters
 	);
-	echo print_client($result);
+	//echo print_client($result);
 
 }else{
 	echo get_form();

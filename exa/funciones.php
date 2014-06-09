@@ -92,17 +92,6 @@ function guardar_csv() {
         } 
     } while ($data = fgetcsv($handle,1000,",","'")); 
     
-//        $sql = "INSERT INTO libro (id,autor_id,titulo, anio,editorial ) VALUES(NULL, '" . addslashes($data[0]) . "', '" . addslashes($data[1]) . "', '" . addslashes($data[2]) . "', '" . addslashes($data[3]) . "');";
-//        mysql_query($sql);
-//        if (mysql_query($sql)) {
-//            echo "Se guardó correctamente";
-//            header('Location: http://localhost/cec/exa/index.php');
-//        } else {
-//            echo "Error al guardar el registro";
-//            echo $sql;
-//        }
-//    } else {
-//        echo "archivo csv no enviado ";
     }
 }
 
@@ -156,7 +145,7 @@ function get_form_login(){
 	<form name="login" action="" method="POST">
 		<table align="center" border=0>
 			<tr>
-				<th colspan="2">FORMUALRIO DE REGISTRO</th>
+				<th colspan="2">REGISTRO</th>
 			</tr>
 			<tr>
 				<th>Username: </th>
