@@ -1,8 +1,8 @@
 <?php  
 
 //connect to the database 
-$connect = mysql_connect("localhost","username","password"); 
-mysql_select_db("mydatabase",$connect); //select the table 
+$connect = mysql_connect("localhost","adm","123"); 
+mysql_select_db("biblioteca",$connect); //select the table 
 // 
 
 if ($_FILES[csv][size] > 0) { 
@@ -14,19 +14,18 @@ if ($_FILES[csv][size] > 0) {
     //loop through the csv file and insert into database 
     do { 
         if ($data[0]) { 
-            mysql_query("INSERT INTO contacts (contact_first, contact_last, contact_email) VALUES 
-                ( 
-                    '".addslashes($data[0])."', 
-                    '".addslashes($data[1])."', 
-                    '".addslashes($data[2])."' 
-                ) 
-            "); 
+            
+            $sql = "INSERT INTO libro (id,autor_id,titulo, anio,editorial )"
+                                    . " VALUES(NULL, '".addslashes($data[0])."', '".addslashes($data[1])."', '".addslashes($data[2])."', '".addslashes($data[3])."');";  
+            
+            mysql_query($sql); 
+          //  echo $sql;
         } 
     } while ($data = fgetcsv($handle,1000,",","'")); 
     // 
 
     //redirect 
-    header('Location: import.php?success=1'); die; 
+  //  header('Location: http://localhost/cec/exa/import.php'); die; 
 
 } 
 

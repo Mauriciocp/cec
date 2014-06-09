@@ -1,5 +1,5 @@
 SET FOREIGN_KEY_CHECKS=0;
-DROP TABLE IF EXISTS `contacts`;
+DROP TABLE IF EXISTS `libro`;
 CREATE TABLE `contacts` (
   `contact_id` int(11) NOT NULL auto_increment,
   `contact_first` varchar(255) character set latin1 default NULL,
