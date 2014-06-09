@@ -40,7 +40,7 @@ if ($_FILES[csv][size] > 0) {
 </head> 
 
 <body> 
-
+    <h1></h1>
 <?php if (!empty($_GET[success])) { echo "<b>Your file has been imported.</b><br><br>"; } //generic success notice ?> 
 
 <form action="" method="post" enctype="multipart/form-data" name="form1" id="form1"> 
